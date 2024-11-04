@@ -5,7 +5,7 @@ import SignUp from './SignUp';
 import SignIn from './SignIn';
 import UserDashboard from './UserDashboard';
 import AdminDashboard from './AdminDashboard';
-//import '../src/App.css';
+import '../src/App.css';
 
 function App() {
   const [events, setEvents] = useState([]);
@@ -32,15 +32,12 @@ function App() {
       <div>
         {/*conditionally render the navbar only if the user is authenticated */}
         {isAuthenticated && (
-          <nav>
-            <Link to="/">Event List</Link>
-            {/*render different links based on user role*/}
-            {userRole === 'admin' && <Link to="/admin">Admin Dashboard</Link>}
-            <button onClick={() => {
-              setIsAuthenticated(false);
-              setUserRole('');
-            }}>Logout</button>
-          </nav>
+          <nav className="navbar">
+            <button className="logout-button" onClick={() => {
+             setIsAuthenticated(false);
+             setUserRole('');
+           }}>Logout</button>
+          </nav>        
         )}
 
         <Routes>

@@ -1,0 +1,20 @@
+.navbar {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+    background-color: #d4dce4; /* Optional background color */
+  }
+  
+  .logout-button {
+    padding: 8px 16px;
+    background-color: #672b91; /* Example purple color, adjust if needed */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .logout-button:hover {
+    background-color: #5a0cac; /* Darker shade for hover effect */
+  }
+  

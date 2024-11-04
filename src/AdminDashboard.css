@@ -50,16 +50,8 @@
 }
 
 
-
-
 .navbar {
   display: flex;
-  /* justify-content: center;
-  gap: 10px;
-  padding: 20px;
-  background-color: #e1dae0;
-  margin-top: -20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
   justify-content: space-between; /* Change to space-between to separate sections */
   align-items: center; /* Align items vertically center */
   padding: 20px;
