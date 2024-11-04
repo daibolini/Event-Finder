@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-//import './UserDashboard.css';
+import './UserDashboard.css';
 
 function UserDashboard() {
   const [events, setEvents] = useState([]);
@@ -17,7 +17,7 @@ function UserDashboard() {
         setFilteredEvents(response.data); //initialize filteredEvents with all events
       })
       .catch(error => {
-        console.error('Error fetching events!', error);
+        console.error('Error fetching events', error);
       });
   }, []);
 
@@ -36,51 +36,53 @@ function UserDashboard() {
     setFilteredEvents(results);
   };
 
-  return (
-    <div>
-      <h1>Event Finder</h1>
-      {/* Search form */}
-      <div>
-        <input
-          type="text"
-          placeholder="Location"
-          value={location}
-          onChange={(e) => setLocation(e.target.value)}
-        />
-        <input
-          type="date"
-          placeholder="Date"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Genre"
-          value={genre}
-          onChange={(e) => setGenre(e.target.value)}
-        />
-        <button onClick={handleSearch}>Search</button>
-      </div>
+    return (
+      <div className="dashboard-container">
+        <div className="banner">
+            <h1>Event Finder</h1>
+            {/* <button className="logout-button"></button> */}
+        </div>
 
-      {/* Display events */}
-      {filteredEvents.length > 0 ? (
-        <ul>
-          {filteredEvents.map(event => (
-            <li key={event.id}>
-              <h2>{event.eventName}</h2>
-              <p>Location: {event.location}</p>
-              <p>Date: {event.date}</p>
-              <p>Genre: {event.genre}</p>
-              <p>Venue: {event.venue}</p>
-              <a href={event.ticketLink}>Buy Tickets</a>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>No events available</p>
-      )}
-    </div>
-  );
+        <div className="search-bar">
+            <input
+            type="text"
+            placeholder="Location"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            />
+            <input
+            type="date"
+            placeholder="Date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            />
+            <input
+            type="text"
+            placeholder="Genre"
+            value={genre}
+            onChange={(e) => setGenre(e.target.value)}
+            />
+            <button onClick={handleSearch}>Search</button>
+        </div>
+
+        <div className="event-list">
+            {filteredEvents.length > 0 ? (
+            filteredEvents.map(event => (
+                <div key={event.id} className="event-card">
+                <h2>{event.eventName}</h2>
+                <p><strong>Location:</strong> {event.location}</p>
+                <p><strong>Date:</strong> {event.date}</p>
+                <p><strong>Genre:</strong> {event.genre}</p>
+                <p><strong>Venue:</strong> {event.venue}</p>
+                <a href={event.ticketLink} target="_blank" rel="noopener noreferrer">Buy Tickets</a>
+                </div>
+            ))
+            ) : (
+            <p>No events available</p>
+            )}
+        </div>
+       </div>
+    );
 }
 
 export default UserDashboard;

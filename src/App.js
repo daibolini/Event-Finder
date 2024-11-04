@@ -5,7 +5,7 @@ import SignUp from './SignUp';
 import SignIn from './SignIn';
 import UserDashboard from './UserDashboard';
 import AdminDashboard from './AdminDashboard';
-import '../src/App.css';
+//import '../src/App.css';
 
 function App() {
   const [events, setEvents] = useState([]);

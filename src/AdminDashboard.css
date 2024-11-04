@@ -27,3 +27,131 @@
   .modal-content button {
     margin-right: 10px;
   }
+
+
+/*Admin Dashboard container*/
+.admin-dashboard {
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+
+.banner {
+  background-image: url('https://img.freepik.com/free-photo/back-view-crowd-fans-watching-live-concert-performance-6_1562-631.jpg?t=st=1730702702~exp=1730706302~hmac=a737e0a565d21a47652de9be146d9e3b368297b4a7ae50e86a0705beae5550fe&w=900');
+  background-size: cover;
+  background-position: center;
+  padding: 60px 0;
+  text-align: center;
+  color: white;
+}
+
+.banner h1 {
+  font-size: 3rem;
+  margin: 0;
+}
+
+
+
+
+.navbar {
+  display: flex;
+  /* justify-content: center;
+  gap: 10px;
+  padding: 20px;
+  background-color: #e1dae0;
+  margin-top: -20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+  justify-content: space-between; /* Change to space-between to separate sections */
+  align-items: center; /* Align items vertically center */
+  padding: 20px;
+  background-color: #e1dae0;
+  margin-top: -20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.search-section, .event-options {
+  /* display: flex;
+  flex-direction: column;
+  gap: 10px; */
+  display: flex;
+  flex-wrap: wrap; /* Allow items to wrap */
+  gap: 10px; /* Add space between items */
+  align-items: center; 
+}
+
+.search-section input, .search-section button,
+.event-options input, .event-options button {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.search-section button, .event-options button {
+  background-color: #734d7f;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.search-section button:hover,
+.event-options button:hover {
+  background-color: #734d7f;
+}
+
+.events-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+  justify-content: center;
+}
+
+.event-card {
+  width: 300px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  transition: transform 0.2s;
+}
+
+.event-card:hover {
+  transform: scale(1.05);
+}
+
+.event-card h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #734d7f;
+}
+
+.event-card p {
+  margin: 5px 0;
+}
+
+.event-card a {
+  display: inline-block;
+  margin-top: 10px;
+  color: #734d7f;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.event-card a:hover {
+  text-decoration: underline;
+}
+
+.event-card button {
+  margin-top: 10px;
+  padding: 8px 12px;
+  background-color: #734d7f;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.event-card button:hover {
+  background-color: #734d7f;
+}

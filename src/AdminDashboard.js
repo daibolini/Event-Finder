@@ -74,10 +74,6 @@ function AdminDashboard() {
         setEditEvent(null);
     };
 
-    // useEffect(() => {
-    //     setFilteredEvents(events);
-    // }, [events]);
-
   const openDeleteModal = (event) => {
     setEventToDelete(event);
     setIsDeleteModalOpen(true);
@@ -104,25 +100,30 @@ function AdminDashboard() {
 
   return (
     <div className="admin-dashboard">
-      <h1>Admin Dashboard</h1>
+      <div className="banner">
+       <h1>Admin Dashboard</h1>
+      </div>
       
       <nav className="navbar">
-        <div className="search-section">
-          <input type="text" placeholder="Location" value={location} onChange={(e) => setLocation(e.target.value)} />
-          <input type="date" placeholder="Date" value={date} onChange={(e) => setDate(e.target.value)} />
-          <input type="text" placeholder="Genre" value={genre} onChange={(e) => setGenre(e.target.value)} />
-          <button onClick={handleSearch}>Search</button>
-        </div>
+        <div className="form-container">
+          <div className="search-section">
+            <h3>Search Events</h3>
+            <input type="text" placeholder="Location" value={location} onChange={(e) => setLocation(e.target.value)} />
+            <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
+            <input type="text" placeholder="Genre" value={genre} onChange={(e) => setGenre(e.target.value)} />
+            <button onClick={handleSearch}>Search</button>
+          </div>
 
-        <div className="event-options">
-          <h3>Add New Event</h3>
-          <input type="text" placeholder="Event Name" value={newEvent.eventName} onChange={(e) => setNewEvent({ ...newEvent, eventName: e.target.value })} />
-          <input type="text" placeholder="Location" value={newEvent.location} onChange={(e) => setNewEvent({ ...newEvent, location: e.target.value })} />
-          <input type="datetime-local" placeholder="Date" value={newEvent.date} onChange={(e) => setNewEvent({ ...newEvent, date: e.target.value })} />
-          <input type="text" placeholder="Genre" value={newEvent.genre} onChange={(e) => setNewEvent({ ...newEvent, genre: e.target.value })} />
-          <input type="text" placeholder="Venue" value={newEvent.venue} onChange={(e) => setNewEvent({ ...newEvent, venue: e.target.value })} />
-          <input type="text" placeholder="Ticket Link" value={newEvent.ticketLink} onChange={(e) => setNewEvent({ ...newEvent, ticketLink: e.target.value })} />
-          <button onClick={handleAddEvent}>Add Event</button>
+          <div className="event-options">
+            <h3>Add New Event</h3>
+            <input type="text" placeholder="Event Name" value={newEvent.eventName} onChange={(e) => setNewEvent({ ...newEvent, eventName: e.target.value })} />
+            <input type="text" placeholder="Location" value={newEvent.location} onChange={(e) => setNewEvent({ ...newEvent, location: e.target.value })} />
+            <input type="datetime-local" value={newEvent.date} onChange={(e) => setNewEvent({ ...newEvent, date: e.target.value })} />
+            <input type="text" placeholder="Genre" value={newEvent.genre} onChange={(e) => setNewEvent({ ...newEvent, genre: e.target.value })} />
+            <input type="text" placeholder="Venue" value={newEvent.venue} onChange={(e) => setNewEvent({ ...newEvent, venue: e.target.value })} />
+            <input type="text" placeholder="Ticket Link" value={newEvent.ticketLink} onChange={(e) => setNewEvent({ ...newEvent, ticketLink: e.target.value })} />
+            <button onClick={handleAddEvent}>Add Event</button>
+          </div>
         </div>
       </nav>
 
@@ -177,7 +178,6 @@ function AdminDashboard() {
         </div>
        </div>
       )}
-
     </div>
   );
 }
