@@ -1,15 +1,36 @@
 import React, { useState } from 'react';
 import './SignUp.css';
+import { useNavigate } from 'react-router-dom';
 
 function SignUp({ onAuthSuccess }) {
+  const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const response = await fetch('/EventFinderRESTProject/rest/users/addUser', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        'accept': 'application/json'
+      },
+      body: JSON.stringify({
+        username: username,
+        password: password,
+        email: email
+      })
+    });  
     
+    if (!response.ok) {
+      throw new Error("Signup failed");
+    }
+
+    else {
+      navigate("/signin");
+    }
   };
 
   return (
