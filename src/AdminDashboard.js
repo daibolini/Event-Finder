@@ -10,9 +10,9 @@ function AdminDashboard() {
   const [genre, setGenre] = useState('');
   const [newEvent, setNewEvent] = useState({ eventName: '', location: '', date: '', genre: '', venue: '', ticketLink: '' });
   const [editEvent, setEditEvent] = useState(null);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [eventToDelete, setEventToDelete] = useState(null);
-  const [successMessage, setSuccessMessage] = useState('');
 
   useEffect(() => {
     fetchEvents();
@@ -40,34 +40,43 @@ function AdminDashboard() {
 
   const handleAddEvent = () => {
     axios.post('/EventFinderRESTProject/rest/events/addEvent', newEvent)
-      .then((response) => {
+      .then(() => {
         fetchEvents();
         setNewEvent({ eventName: '', location: '', date: '', genre: '', venue: '', ticketLink: '' });
-        setSuccessMessage(response.data);
+        alert("Event added successfully!");
       })
       .catch(error => {
         console.error('Error adding event', error);
       });
   };
 
-  //const handleUpdateEvent = () => {
    const handleUpdateEvent = () => {
     if (editEvent) {
         axios.put(`/EventFinderRESTProject/rest/events/updateEvent`, editEvent)
-           .then((response) => {
-            fetchEvents(); // Refresh the event list
+           .then(() => {
+            fetchEvents(); //refresh the event list
             setEditEvent(null);
-            setSuccessMessage(response.data);
+            alert("Event updated successfully!");
            })
            .catch(error => {
             console.error('Error updating event', error);
            });
-        };
+        }
     };
 
-    useEffect(() => {
-        setFilteredEvents(events);
-    }, [events]);
+    const openEditModal = (event) => {
+        setEditEvent(event);
+        setIsEditModalOpen(true);
+    };
+    
+      const closeEditModal = () => {
+        setIsEditModalOpen(false);
+        setEditEvent(null);
+    };
+
+    // useEffect(() => {
+    //     setFilteredEvents(events);
+    // }, [events]);
 
   const openDeleteModal = (event) => {
     setEventToDelete(event);
@@ -80,6 +89,7 @@ function AdminDashboard() {
         .then(() => {
           fetchEvents();
           closeDeleteModal();
+          alert("Event deleted successfully");
         })
         .catch(error => {
           console.error('Error removing event', error);
@@ -95,8 +105,6 @@ function AdminDashboard() {
   return (
     <div className="admin-dashboard">
       <h1>Admin Dashboard</h1>
-
-      {successMessage && <p className="success-message">{successMessage}</p>}
       
       <nav className="navbar">
         <div className="search-section">
@@ -110,7 +118,7 @@ function AdminDashboard() {
           <h3>Add New Event</h3>
           <input type="text" placeholder="Event Name" value={newEvent.eventName} onChange={(e) => setNewEvent({ ...newEvent, eventName: e.target.value })} />
           <input type="text" placeholder="Location" value={newEvent.location} onChange={(e) => setNewEvent({ ...newEvent, location: e.target.value })} />
-          <input type="date" placeholder="Date" value={newEvent.date} onChange={(e) => setNewEvent({ ...newEvent, date: e.target.value })} />
+          <input type="datetime-local" placeholder="Date" value={newEvent.date} onChange={(e) => setNewEvent({ ...newEvent, date: e.target.value })} />
           <input type="text" placeholder="Genre" value={newEvent.genre} onChange={(e) => setNewEvent({ ...newEvent, genre: e.target.value })} />
           <input type="text" placeholder="Venue" value={newEvent.venue} onChange={(e) => setNewEvent({ ...newEvent, venue: e.target.value })} />
           <input type="text" placeholder="Ticket Link" value={newEvent.ticketLink} onChange={(e) => setNewEvent({ ...newEvent, ticketLink: e.target.value })} />
@@ -129,7 +137,7 @@ function AdminDashboard() {
               <p>Genre: {event.genre}</p>
               <p>Venue: {event.venue}</p>
               <a href={event.ticketLink}>Buy Tickets</a>
-              <button onClick={() => setEditEvent(event)}>Edit</button>
+              <button onClick={() => openEditModal(event)}>Edit</button>
               <button onClick={() => openDeleteModal(event)}>Delete</button>
               {/* <button onClick={() => handleRemoveEvent(event.eventName)}>Delete</button> */}
             </div>
@@ -139,28 +147,35 @@ function AdminDashboard() {
         )}
       </div>
 
-      {editEvent && (
-        <div className="edit-event-form">
+      {isEditModalOpen && editEvent && (
+        <div className="modal-overlay">
+          <div className="modal-content">
           <h3>Edit Event</h3>
-          <input type="text" placeholder="Event Name" value={editEvent.eventName} onChange={(e) => setEditEvent({ ...editEvent, eventName: e.target.value })} />
-          <input type="text" placeholder="Location" value={editEvent.location} onChange={(e) => setEditEvent({ ...editEvent, location: e.target.value })} />
-          <input type="date" placeholder="Date" value={editEvent.date} onChange={(e) => setEditEvent({ ...editEvent, date: e.target.value })} />
-          <input type="text" placeholder="Genre" value={editEvent.genre} onChange={(e) => setEditEvent({ ...editEvent, genre: e.target.value })} />
-          <input type="text" placeholder="Venue" value={editEvent.venue} onChange={(e) => setEditEvent({ ...editEvent, venue: e.target.value })} />
-          <input type="text" placeholder="Ticket Link" value={editEvent.ticketLink} onChange={(e) => setEditEvent({ ...editEvent, ticketLink: e.target.value })} />
+          {editEvent && (
+                <>
+                    <input type="text" placeholder="Event Name" value={editEvent.eventName || ''} onChange={(e) => setEditEvent({ ...editEvent, eventName: e.target.value })} />
+                    <input type="text" placeholder="Location" value={editEvent.location || ''} onChange={(e) => setEditEvent({ ...editEvent, location: e.target.value })} />
+                    <input type="datetime-local" placeholder="Date" value={editEvent.date || ''} onChange={(e) => setEditEvent({ ...editEvent, date: e.target.value })} />
+                    <input type="text" placeholder="Genre" value={editEvent.genre || ''} onChange={(e) => setEditEvent({ ...editEvent, genre: e.target.value })} />
+                    <input type="text" placeholder="Venue" value={editEvent.venue || ''} onChange={(e) => setEditEvent({ ...editEvent, venue: e.target.value })} />
+                    <input type="text" placeholder="Ticket Link" value={editEvent.ticketLink || ''} onChange={(e) => setEditEvent({ ...editEvent, ticketLink: e.target.value })} />
+                </>
+            )}
           <button onClick={handleUpdateEvent}>Update Event</button>
-          <button onClick={() => setEditEvent(null)}>Cancel</button>
+          <button onClick={closeEditModal}>Cancel</button> 
         </div>
+       </div>
       )}
 
       {isDeleteModalOpen && (
-        <div className="delete-modal">
-          <div className="delete-modal-content">
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h3>Delete Event</h3>
             <p>Are you sure you want to delete this event?</p>
             <button onClick={handleRemoveEvent}>Yes</button>
             <button onClick={closeDeleteModal}>No</button>
-          </div>
         </div>
+       </div>
       )}
 
     </div>

@@ -11,11 +11,6 @@ function SignIn({ onAuthSuccess}) {
     
     try {
       const response = await fetch('/EventFinderRESTProject/rest/users/login', {
-        // method: 'GET',
-        // headers: {
-        //   'accept': 'application/json',
-        // },
-        // body: JSON.stringify({ email, password }),
         method: 'POST', 
         headers: {
           'Content-Type': 'application/json',
@@ -80,48 +75,3 @@ function SignIn({ onAuthSuccess}) {
 }
 
 export default SignIn;
-
-
-
-// import React, { useState } from 'react';
-// import axios from 'axios';
-
-// function SignIn() {
-//   const [username, setUsername] = useState('');
-//   const [password, setPassword] = useState('');
-//   const [message, setMessage] = useState('');
-
-//   const handleSignIn = (e) => {
-//     e.preventDefault();
-
-//     const userCredentials = { username, password };
-
-//     axios.post('http://localhost:8080/EventFinderRESTProject/rest/users/signin', userCredentials)
-//       .then(response => {
-//         setMessage('Login successful!');
-//         // You can redirect to another page after login
-//       })
-//       .catch(error => {
-//         console.error('There was an error logging in!', error);
-//         setMessage('Invalid username or password.');
-//       });
-//   };
-
-//   return (
-//     <div>
-//       <h2>Sign In</h2>
-//       <form onSubmit={handleSignIn}>
-//         <label>Username:</label>
-//         <input type="text" value={username} onChange={e => setUsername(e.target.value)} required />
-
-//         <label>Password:</label>
-//         <input type="password" value={password} onChange={e => setPassword(e.target.value)} required />
-
-//         <button type="submit">Sign In</button>
-//       </form>
-//       {message && <p>{message}</p>}
-//     </div>
-//   );
-// }
-
-// export default SignIn;
